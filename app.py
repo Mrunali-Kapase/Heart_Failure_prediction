@@ -77,7 +77,7 @@ def predict():
     prediction=model.predict([[Age, RestingBP, Cholesterol, FastingBS, MaxHR, Oldpeak, Sex_M, ChestPainType_ATA, ChestPainType_NAP, ChestPainType_TA, RestingECG_Normal, RestingECG_ST, ExerciseAngina_Y, ST_Slope_Flat, ST_Slope_Up]])
     output=prediction[0]
     if output==0:
-        return render_template('home.html',prediction_text="Patient does not heart disease")
+        return render_template('home.html',prediction_text="Patient does not have heart disease")
     else:
         return render_template('home.html',prediction_text="Patient have Heart disease") 
 
