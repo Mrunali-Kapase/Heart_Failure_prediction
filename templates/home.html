@@ -1,0 +1,199 @@
+<html>
+    <head style="color:rgb(107, 208, 248)">
+        <h1 style="text-align:center; color:rgb(4, 19, 2)">Heart Failure Prediction</h1><br><br>
+        <!-- <img src="/static/heart_img.jpg" alt="Girl in a jacket" width="800" height="200" > -->
+    </head>
+
+    <body>
+        <div style="color:rgb(42, 10, 85)" id="something">
+        <form action='/predict' method="POST">
+        
+            <label for='Age'><h3>What is the age of the patient [years] </h3></label>
+            <input type="number" name='Age' id='first' required='required'/>
+
+            <label for="gender"><h3>What is the gender of the patient [M: Male, F: Female] </h3></label><br>
+            <select name="gender" id="gender" required='required'>
+                <option value="M">M</option>
+                <option value="F">F</option>
+            </select><br><br>
+
+            <label for="RestingBP"><h3>Resting blood pressure [mm Hg]</h3></label>
+            <input type="number" name='RestingBP' id = 'second' required='required'/>
+
+            <label for="Cholesterol"><h3>Serum cholesterol [mm/dl] </h3></label><br>
+            <input type="number" name='Cholesterol' id= 'third' required='required'><br><br>
+
+            <label for="FastingBS"><h3> fasting blood sugar [1: if FastingBS > 120 mg/dl, 0: otherwise] </h3></label><br>
+            <select name="FastingBS" id="FastingBS" required='required'>
+                <option value=0>0</option>
+                <option value=1>1</option>
+            </select><br><br>
+
+            <label for="MaxHR"><h3>Maximum heart rate achieved [Numeric value between 60 and 202] </h3></label><br>
+            <input type="number" name='MaxHR' id= 'fourth' required='required'><br><br>
+
+            <label for="Oldpeak"><h3>Oldpeak = ST [Numeric value measured in depression]</h3></label><br>
+            <input type="number" name='Oldpeak' id= 'fifth' required='required'><br><br>
+
+            <label for="ChestPainType"><h3>Chest pain type [TA: Typical Angina, ATA: Atypical Angina, NAP: Non-Anginal Pain, ASY: Asymptomatic]</h3></label><br>
+            <select name="ChestPainType" id="ChestPainType" required='required'>
+                <option value="TA">TA: Typical Angina</option>
+                <option value="ATA">ATA: Atypical Angina</option>
+                <option value="NAP">NAP: Non-Anginal Pain</option>
+                <option value="ASY">ASY: Asymptomati</option>
+            </select><br><br>
+
+            <label for="RestingECG"><h3>Resting electrocardiogram results [Normal: Normal, ST: having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV), LVH: showing probable or definite left ventricular hypertrophy by Estes' criteria]</h3></label><br>
+            <select name="RestingECG" id="RestingECG" required='required'>
+                <option value="Normal">Normal</option>
+                <option value="ST">ST</option>
+                <option value="LVH">LVH</option>
+            </select><br><br>
+
+            <label for="ExerciseAngina"><h3>exercise-induced angina [Y: Yes, N: No]</h3></label><br>
+            <select name="ExerciseAngina" id="ExerciseAngina" required='required'>
+                <option value="Y">Y</option>
+                <option value="N">N</option>
+            </select><br><br><br>
+
+            <label for="ST_Slope"><h3>The slope of the peak exercise ST segment [Up: upsloping, Flat: flat, Down: downsloping]</h3></label><br>
+            <select name="ST_Slope" id="ST_Slope" required='required'>
+                <option value="Up">Up</option>
+                <option value="Flat">Flat</option>
+                <option value="Down">Down</option>
+            </select><br><br><br>
+
+            <button type="submit" id="sub">Predict a possible heart disease</button><br><br><br>
+           
+        </form>
+
+        <h2>{{prediction_text}} </h2><br><br><br>
+
+
+
+    </div>
+
+
+    <style>
+        body {
+            background-image: url('/static/ecg.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            /* background-image: url("background.jpg"); */
+            /* background-color: #cccccc; */
+            /* background-color: rgb(130, 151, 155); */
+            text-align: center;
+            padding: 150px;
+        }
+       
+
+        #gender {
+            width: 83px;
+            height: 43px;
+            text-align: center;
+            border-radius: 14px;
+            font-size: 15px;
+        }
+        #gender:hover {
+            background-color: rgb(116, 201, 240);
+        }
+        #FastingBS {
+            width: 95px;
+            height: 43px;
+            text-align: center;
+            border-radius: 14px;
+            font-size: 15px;
+        }
+        #FastingBS:hover {
+            background-color: rgb(116, 201, 240);
+        }
+        #ChestPainType {
+            width: 200px;
+            height: 43px;
+            text-align: center;
+            border-radius: 14px;
+            font-size: 15px;
+        }
+        #ChestPainType:hover {
+            background-color: rgb(116, 201, 240);
+        }
+        #RestingECG {
+            width: 130px;
+            height: 43px;
+            text-align: center;
+            border-radius: 14px;
+            font-size: 15px;
+        }
+        #RestingECG:hover {
+            background-color: rgb(116, 201, 240);
+        }
+        #ExerciseAngina {
+            width: 130px;
+            height: 43px;
+            text-align: center;
+            border-radius: 14px;
+            font-size: 15px;
+        }
+        #ExerciseAngina:hover {
+            background-color: rgb(116, 201, 240);
+        }
+        #ST_Slope {
+            width: 130px;
+            height: 43px;
+            text-align: center;
+            border-radius: 14px;
+            font-size: 15px;
+        }
+        #ST_Slope:hover {
+            background-color: rgb(116, 201, 240);
+        }
+        #sub {
+            width: 250px;
+            height: 50px;
+            text-align: center;
+            border-radius: 14px;
+            font-size: 18px;
+        }
+        
+        #sub:hover {
+            background-color: darkcyan;
+        }
+        #first {
+            border-radius: 14px;
+            height: 25px;
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        #second {
+            border-radius: 14px;
+            height: 25px;
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        #third {
+            border-radius: 14px;
+            height: 25px;
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        #fourth {
+            border-radius: 14px;
+            height: 25px;
+            font-size: 20px;
+            text-align: center;
+        }
+        #fifth {
+            border-radius: 14px;
+            height: 25px;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+        
+    </body>
+
+</html>
